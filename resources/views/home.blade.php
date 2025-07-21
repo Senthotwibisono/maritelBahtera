@@ -23,7 +23,7 @@
                     <p><strong>Maritel Bahtera Abadi || Invoice Center</strong></p>
                 </div>
                 <div class="card-body text-center">
-                    <img src="{{ asset('logo/logoAsli.webp') }}" style="width: 80%;" alt="Logo">
+                    <img src="{{ asset('logo/logoAsli.jpg') }}" style="width: 100%;" alt="Logo">
                 </div>
             </div>
         </div>

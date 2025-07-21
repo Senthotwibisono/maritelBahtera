@@ -285,7 +285,7 @@ class InvoiceController extends Controller
 
                 $layout = Layout::find($header->layout_id);
                 $layout->update([
-                    'name' => $layout->name . ' ' . $header->ves_name . ' - ' . $header->voy . ' / ' . $header->activity,
+                    'name' => $header->ves_name . ' - ' . $header->voy . ' / ' . $header->activity,
                     'remark' => $header->activity . ' / ' . $header->purpose_of_call
                 ]);
             });

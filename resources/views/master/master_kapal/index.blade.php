@@ -12,7 +12,7 @@
                 <div class="card-header">
                     <div class="row">
                         <div class="col-auto">
-                            <button type="button" class="btn btn-success" onClick="excelModal(this)"><i class="fas fa-file"></i> Upload File</button>
+                            <button type="button" class="btn btn-success" onClick="excelModal(this)" disabled><i class="fas fa-file"></i> Upload File</button>
                         </div>
                         <div class="col-auto">
                             <button type="button" class="btn btn-primary" onClick="singleModal(this)"><i class="fas fa-plus"></i> Upload Single</button>
