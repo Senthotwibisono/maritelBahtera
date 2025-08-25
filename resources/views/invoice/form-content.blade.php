@@ -136,7 +136,7 @@
             <select id="vessel" class="selectSingle" style="heigth: 50px; width: 100%">
                 <option disabled selected value>Pilih Satu</option>
               @foreach($vessels as $vessel)
-                <option value="{{$vessel->id}}" {{$vessel->id == $header->ves_id ? 'selected' : ''}}>{{$vessel->name}}</option>
+                <option value="{{$vessel->id}}" {{$vessel->id == $header->voy_id ? 'selected' : ''}}>{{$vessel->Master->name}} / {{$vessel->voy_no ?? ''}}</option>
               @endforeach
             </select>
           </td>
@@ -151,6 +151,7 @@
             <input type="number" step="any" value="{{$header->dwt ?? 0}}" id="dwt" class="form-control">
             <input type="hidden" value="{{$header->id}}" id="headerId" class="form-control">
             <input type="hidden" value="{{$header->layout_id}}" id="layoutId" class="form-control">
+            <input type="hidden" value="{{$header->ves_id}}" id="ves_id" class="form-control">
           </td>
           <td>PORT OF CALL</td>
           <td>
@@ -544,11 +545,13 @@
         const hasil = await dataVessel(id);
         // console.log(data);
         $('#dwt').val(hasil.data.dwt).trigger('change');
+        $('#ves_id').val(hasil.data.id).trigger('change');
         $('#grt').val(hasil.data.grt).trigger('change');
         $('#nrt').val(hasil.data.nrt).trigger('change');
         $('#loa').val(hasil.data.loa).trigger('change');
         $('#breadth').val(hasil.data.breadth).trigger('change');
         $('#country').val(hasil.data.country_id).trigger('change');
+        $('#voy').val(hasil.voy.voy_no).trigger('change');
         hideLoading();
         successHasil(hasil);
       });

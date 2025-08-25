@@ -22,7 +22,10 @@
                                 <th>Reference No</th>
                                 <th>Vessel</th>
                                 <th>Voy</th>
+                                <th>Arrival Date</th>
+                                <th>Departure Date</th>
                                 <th>Port</th>
+                                <th>Status Kapal</th>
                                 <th>Purpose</th>
                                 <th>Status</th>
                                 <th>User</th>
@@ -159,14 +162,36 @@
                 {data:'reference_no', name:'reference_no', className:'text-center'},
                 {data:'ves_name', name:'ves_name', className:'text-center'},
                 {data:'voy', name:'voy', className:'text-center'},
+                {data:'arrival', name:'arrival', className:'text-center'},
+                {data:'departure', name:'departure', className:'text-center'},
                 {data:'port', name:'port', className:'text-center'},
+                {data:'statusKapal', name:'statusKapal', className:'text-center'},
                 {data:'purpose_of_call', name:'purpose_of_call', className:'text-center'},
                 {data:'status', name:'status', className:'text-center'},
                 {data:'user', name:'user', className:'text-center'},
                 {data:'edit', name:'edit', className:'text-center'},
                 {data:'print', name:'print', className:'text-center'},
                 {data:'cancel', name:'cancel', className:'text-center'},
-                {data:'updateStatus', name:'updateStatus', className:'text-center'}
+                {data:'updateStatus', name:'updateStatus', className:'text-center'},
+                {
+                    data: null,
+                    name: 'sort_order',
+                    visible: false,
+                    render: function (data, type, row) {
+                        const today = new Date().toISOString().slice(0,10); // YYYY-MM-DD
+                        const arrival = row.arrival_date ? row.arrival_date.slice(0,10) : null;
+                        const departure = row.departure_date ? row.departure_date.slice(0,10) : null;
+
+                        if (arrival && arrival > today) {
+                            return 1; // belum datang
+                        } else if (arrival && arrival <= today && (!departure || departure > today)) {
+                            return 2; // sudah arrival tapi belum depart
+                        } else if (departure && departure <= today) {
+                            return 3; // sudah departure
+                        }
+                        return 4; // default
+                    }
+                }
             ]
         });
     });

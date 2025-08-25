@@ -7,6 +7,7 @@ use App\Models\Master\MasterItem as Item;
 use App\Models\Master\MasterFormulaVariable as Variable;
 
 use App\Models\Master\MasterKapal as Kapal;
+use App\Models\VVoyage as Voy;
 
 class GetDataController extends Controller
 {
@@ -37,12 +38,14 @@ class GetDataController extends Controller
 
     public function getVessel(Request $request)
     {
-        $vessel = Kapal::find($request->id);
+        $voy = Voy::find($request->id);
+        $vessel = Kapal::find($voy->master_id);
         if ($vessel) {
             return response()->json([
                 'success' => true,
                 'message' => 'Data ditemukan',
-                'data' => $vessel
+                'data' => $vessel,
+                'voy' => $voy
             ]);
         }else {
             return response()->json([

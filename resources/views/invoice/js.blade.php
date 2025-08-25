@@ -339,7 +339,8 @@
             buttonLoading(button);
             const headerId = document.getElementById('headerId').value;
             const layoutId = document.getElementById('layoutId').value;
-            const ves_id = document.getElementById('vessel').value;
+            const ves_id = document.getElementById('ves_id').value;
+            const voy_id = document.getElementById('vessel').value;
             const invoice_date = document.getElementById('invoice_date').value;
             const dwt = document.getElementById('dwt').value;
             const port_of_call = document.getElementById('port').value;
@@ -394,6 +395,7 @@
                 headerId,
                 layoutId,
                 ves_id,
+                voy_id,
                 invoice_date,
                 dwt,
                 port_of_call,

@@ -15,6 +15,13 @@
         </a>
     </li>
 
+     <li class="sidebar-item @if(Request::is('voyage/*') || Request::is('/voyage/*')) active @endif">
+        <a href="{{route('voyage.index')}}" class='sidebar-link'>
+            <i class="fas fa-ship"></i>
+            <span>Ves Schedule</span>
+        </a>
+    </li>
+
     <li class="sidebar-item  has-sub @if(Request::is('master/*')) active @endif">
         <a href="#" class='sidebar-link'>
             <i class="bi bi-collection-fill"></i>

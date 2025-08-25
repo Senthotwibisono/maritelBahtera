@@ -26,6 +26,7 @@ use App\Models\Master\MasterKapal;
 use App\Models\Master\MasterCountry;
 
 use App\Models\Invoice\InvoiceHeader as Header;
+use App\Models\VVoyage as Voy;
 
 class InvoiceController extends Controller
 {
@@ -100,12 +101,31 @@ class InvoiceController extends Controller
                 return '<button class="btn btn-danger" data-id="'.$data->id.'" onClick="cancelInvoiceHeader(this)"><i class="fas fa-trash"></i></button>';
             }
         })
+        ->addColumn('arrival', function($data){
+            return $data->Voy->arrival_date ?? '';
+        })
+        ->addColumn('departure', function($data){
+            return $data->Voy->departure_date ?? '';
+        })
+        ->addColumn('statusKapal', function($data){
+            $now = Carbon::now();
+            
+            if (!empty($data->Voy->departure_date) && $data->Voy->departure_date < $now) {
+                $status = '<span class="badge bg-info text-dark">Sudah Berangkat</span>';
+            } elseif (!empty($data->Voy->arrival_date) && $data->Voy->arrival_date < $now) {
+                $status = '<span class="badge bg-warning text-dark">Sudah Sandar</span>';
+            } else {
+                $status = '<span class="badge bg-success text-dark">Belum Sandar</span>';
+            }
+        
+            return $status;
+        })
         ->addColumn('updateStatus', function($data) {
             return '<div title="Untuk next update" style="display:inline-block">
               <button class="btn btn-success" data-id="'.$data->id.'" disabled style="pointer-events: none;">Update Status</button>
             </div>';
         })
-        ->rawColumns(['edit', 'cancel', 'reference_no', 'status', 'print', 'updateStatus'])
+        ->rawColumns(['edit', 'cancel', 'reference_no', 'status', 'print', 'updateStatus', 'statusKapal'])
         ->make(true);
     }
 
@@ -202,7 +222,7 @@ class InvoiceController extends Controller
         $data['mitems'] = Item::get();
         $data['variables'] = Variable::get();
 
-        $data['vessels'] = MasterKapal::get();
+        $data['vessels'] = Voy::get();
         $data['ports'] = MasterPort::get();
         $data['countries'] = MasterCountry::get();
 
@@ -231,6 +251,7 @@ class InvoiceController extends Controller
                 $ves = MasterKapal::find($request->ves_id);
                 $header->update([
                     'ves_id' => $request->ves_id,
+                    'voy_id' => $request->voy_id,
                     'ves_name' => $ves->name,
                     'ves_code' => $ves->code,
                     'dwt' => $request->dwt,

@@ -8,6 +8,7 @@ use App\Http\Controllers\Master\MasterItemController;
 use App\Http\Controllers\Master\MasterLayoutController;
 use App\Http\Controllers\GetDataController;
 use App\Http\Controllers\Invoice\InvoiceController;
+use App\Http\Controllers\VoyageController;
 
 
 Auth::routes();
@@ -112,4 +113,11 @@ Route::prefix('/getData')->name('getData.')->controller(GetDataController::class
     Route::post('/master/layout/item', 'getLayoutItem');
 
     Route::post('/getVessel', 'getVessel')->name('vessel');
+});
+
+Route::prefix('/voyage')->name('voyage.')->controller(VoyageController::class)->group(function() {
+    Route::get('/index', 'index')->name('index');
+    Route::get('/data', 'data')->name('data');
+    Route::post('/post', 'post')->name('post');
+    Route::post('/edit', 'edit')->name('edit');
 });

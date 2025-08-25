@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 use App\Models\Master\MasterCountry;
 use App\Models\Master\MasterPort;
 use App\Models\User;
+Use App\Models\VVoyage;
 class InvoiceHeader extends Model
 {
     protected $table = 'invoice_header';
@@ -45,6 +46,7 @@ class InvoiceHeader extends Model
         'user_id',
         'updated_at',
         'last_user_updated',
+        'voy_id'
     ];
 
     public function Negara()
@@ -65,5 +67,10 @@ class InvoiceHeader extends Model
     public function UserUpdate()
     {
         return $this->belongsTo(User::class, 'last_user_updated', 'id');
+    }
+
+    public function Voy()
+    {
+        return $this->belongsTo(VVoyage::class, 'voy_id', 'id');
     }
 }
