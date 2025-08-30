@@ -341,8 +341,10 @@ class InvoiceController extends Controller
         $data['ports'] = MasterPort::get();
         $data['countries'] = MasterCountry::get();
 
-        $pdf = Pdf::loadView('invoice.pdf', $data);
-        return $pdf->stream('preview.pdf');
+        // $pdf = Pdf::loadView('invoice.pdf', $data);
+        // return $pdf->stream('preview.pdf');
+
+        return view('invoice.pdf', $data);
     }
 
     public function cancelFirst(Request $request)

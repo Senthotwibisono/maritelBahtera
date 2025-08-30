@@ -203,11 +203,33 @@
     }
   }
 </style>
+
+<style>
+  .row {
+    display: flex;
+    flex-wrap: nowrap;
+    margin-bottom: 4px;
+    font-size: 12px;
+  }
+  .col-label {
+    flex: 0 0 160px;   /* lebar tetap utk label */
+    font-weight: normal;
+  }
+  .col-sep {
+    flex: 0 0 10px;    /* titik dua */
+  }
+  .col-value {
+    flex: 1;           /* isi ambil sisa */
+    font-weight: 700;
+  }
+</style>
+
 </head>
 <body>
   <div class="container">
     <div class="logo-container" style="text-align: center; margin-bottom: 1px;">
-      <img src="{{public_path('logo/logoAsli.webp')}}" alt="Logo of PT. Maritel Bahtera Abadi with green, blue, and red arcs surrounding a flag and text" class="logo" />
+      <!-- <img src="{{public_path('logo/logoAsli.webp')}}" alt="Logo of PT. Maritel Bahtera Abadi with green, blue, and red arcs surrounding a flag and text" class="logo" /> -->
+      <img src="{{asset('logo/logoAsli.webp')}}" alt="Logo of PT. Maritel Bahtera Abadi with green, blue, and red arcs surrounding a flag and text" class="logo" />
     </div>
     <h1 class="header-font">PT. MARITEL BAHTERA ABADI</h1>
     <p class="address">
@@ -443,15 +465,56 @@
         <li>Usage time of Tug as per operator actual time.</li>
         <li>All Agency fees and costs are subject to 11% VAT according to Indonesia Government Regulation</li>
       </ol>
-      <p style="font-weight: 700; margin-top: 12px;">Our nominated bank details as below:</p>
-      <p>Bankers : <span style="font-weight: 700;">Bank Mandiri (Persero) Tbk, Samarinda Sudirman Branch</span></p>
-      <p>Bank Address : <span style="font-weight: 700;">Jalan Jenderal Sudirman</span></p>
-      <p>Bank Acc No : <span style="font-weight: 700;">148-00-10510587</span></p>
-      <p>Currency : <span style="font-weight: 700;">USD</span></p>
-      <p>Bank SWIFT code : <span style="font-weight: 700;">BMRIIDJA</span></p>
-      <p>Beneficiary Name / In Favour Of : <span style="font-weight: 700;">PT. MARITEL BAHTERA ABADI</span></p>
-      <p>Beneficiary Address : <span style="font-weight: 700;">Mahakam Square Blok B. No 36, Jln Untung Suropati - Sungai Kunjang, Samarinda</span></p>
     </div>
+
+    <div style="margin-top:12px; font-size:14px;">
+      <div class="row" style="font-weight:700;">
+        <div class="">Our nominated bank details as below:</div>
+      </div>    
+
+      <div class="row">
+        <div class="col-label">Bankers</div>
+        <div class="col-sep">:</div>
+        <div class="col-value">Bank Mandiri (Persero) Tbk, Samarinda Sudirman Branch</div>
+      </div>    
+
+      <div class="row">
+        <div class="col-label">Bank Address</div>
+        <div class="col-sep">:</div>
+        <div class="col-value">Jalan Jenderal Sudirman</div>
+      </div>    
+
+      <div class="row">
+        <div class="col-label">Bank Acc No</div>
+        <div class="col-sep">:</div>
+        <div class="col-value">148-00-10510587</div>
+      </div>    
+
+      <div class="row">
+        <div class="col-label">Currency</div>
+        <div class="col-sep">:</div>
+        <div class="col-value">USD</div>
+      </div>    
+
+      <div class="row">
+        <div class="col-label">Bank SWIFT code</div>
+        <div class="col-sep">:</div>
+        <div class="col-value">BMRIIDJA</div>
+      </div>    
+
+      <div class="row">
+        <div class="col-label">Beneficiary Name / In Favour Of</div>
+        <div class="col-sep">:</div>
+        <div class="col-value">PT. MARITEL BAHTERA ABADI</div>
+      </div>    
+
+      <div class="row">
+        <div class="col-label">Beneficiary Address</div>
+        <div class="col-sep">:</div>
+        <div class="col-value">Mahakam Square Blok B. No 36, Jln Untung Suropati - Sungai Kunjang, Samarinda</div>
+      </div>
+    </div>
+    
   </div>
 </body>
 </html>

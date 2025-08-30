@@ -13,7 +13,8 @@
                 <div class="sidebar-header position-flex">
                     <div class="d-flex justify-content-between align-items-center">
                         <div class="logoicon" style="left: -1000;">
-                            <a href="/"><img src="{{asset('logo/logoM.png')}}" alt="Logo" style="position: relative; left: 15px; width: 100%;" srcset=""></a>
+                            <!-- <a href="/"><img src="{{asset('logo/logoM.png')}}" alt="Logo" style="position: relative; left: 15px; width: 100%;" srcset=""></a> -->
+                            <!-- <a href="/"><img src="{{asset('logo/logoM.png')}}" alt="Logo" style="position: relative; left: 15px; width: 100%;" srcset=""></a> -->
                         </div>
                         <!-- Dark or Light mode -->
                         
