@@ -11,7 +11,7 @@
      <li class="sidebar-item @if(Request::is('invoice/*') || Request::is('/invoice/*')) active @endif">
         <a href="{{route('invoice.index')}}" class='sidebar-link'>
             <i class="fas fa-dollar"></i>
-            <span>Invoice</span>
+            <span>Penawaran</span>
         </a>
     </li>
 

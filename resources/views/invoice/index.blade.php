@@ -15,28 +15,118 @@
                 </div>
             </div>
             <div class="card-body">
-                <div class="table">
-                    <table class="table table-hover" id ="tableInvoice">
-                        <thead style="white-space: nowrap;">
-                            <tr>
-                                <th>Reference No</th>
-                                <th>Vessel</th>
-                                <th>Voy</th>
-                                <th>Arrival Date</th>
-                                <th>Departure Date</th>
-                                <th>Port</th>
-                                <th>Status Kapal</th>
-                                <th>Purpose</th>
-                                <th>Status</th>
-                                <th>User</th>
-                                <th>Edit</th>
-                                <th>Print</th>
-                                <th>Cancel</th>
-                                <th>Update Status</th>
-                            </tr>
-                        </thead>
-                    </table>
-                </div>
+              <ul class="nav nav-tabs" id="myTab" role="tablist">
+                  <li class="nav-item" role="presentation">
+                      <a class="nav-link active" id="home-tab" data-bs-toggle="tab" href="#home" role="tab" aria-controls="home" aria-selected="true">List Penawaran All</a>
+                  </li>
+                  <li class="nav-item" role="presentation">
+                      <a class="nav-link" id="profile-tab" data-bs-toggle="tab" href="#profile" role="tab" aria-controls="profile" aria-selected="false">List Penawaran Kapal Belum Tiba</a>
+                  </li>
+                  <li class="nav-item" role="presentation">
+                      <a class="nav-link" id="contact-tab" data-bs-toggle="tab" href="#contact" role="tab" aria-controls="contact" aria-selected="false">List Penawaran Kapal Sandar</a>
+                  </li>
+                  <li class="nav-item" role="presentation">
+                      <a class="nav-link" id="contact-tab" data-bs-toggle="tab" href="#done" role="tab" aria-controls="done" aria-selected="false">List Penawaran Kapal Sudah Berangkat</a>
+                  </li>
+              </ul>
+              <div class="tab-content" id="myTabContent">
+                  <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
+                      <div class="table">
+                          <table class="table table-hover" id ="tableInvoice">
+                              <thead style="white-space: nowrap;">
+                                  <tr>
+                                      <th>Reference No</th>
+                                      <th>Vessel</th>
+                                      <th>Voy</th>
+                                      <th>Arrival Date</th>
+                                      <th>Departure Date</th>
+                                      <th>Port</th>
+                                      <th>Status Kapal</th>
+                                      <th>Purpose</th>
+                                      <th>Status</th>
+                                      <th>User</th>
+                                      <th>Edit</th>
+                                      <th>Print</th>
+                                      <th>Cancel</th>
+                                      <th>Update Status</th>
+                                  </tr>
+                              </thead>
+                          </table>
+                      </div>
+                  </div>
+                  <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">
+                      <div class="table">
+                          <table class="table table-hover" id ="tableArrival">
+                              <thead style="white-space: nowrap;">
+                                  <tr>
+                                      <th>Reference No</th>
+                                      <th>Vessel</th>
+                                      <th>Voy</th>
+                                      <th>Arrival Date</th>
+                                      <th>Departure Date</th>
+                                      <th>Port</th>
+                                      <th>Status Kapal</th>
+                                      <th>Purpose</th>
+                                      <th>Status</th>
+                                      <th>User</th>
+                                      <th>Edit</th>
+                                      <th>Print</th>
+                                      <th>Cancel</th>
+                                      <th>Update Status</th>
+                                  </tr>
+                              </thead>
+                          </table>
+                      </div>
+                  </div>
+                  <div class="tab-pane fade" id="contact" role="tabpanel" aria-labelledby="contact-tab">
+                      <div class="table">
+                          <table class="table table-hover" id ="tableSandar">
+                              <thead style="white-space: nowrap;">
+                                  <tr>
+                                      <th>Reference No</th>
+                                      <th>Vessel</th>
+                                      <th>Voy</th>
+                                      <th>Arrival Date</th>
+                                      <th>Departure Date</th>
+                                      <th>Port</th>
+                                      <th>Status Kapal</th>
+                                      <th>Purpose</th>
+                                      <th>Status</th>
+                                      <th>User</th>
+                                      <th>Edit</th>
+                                      <th>Print</th>
+                                      <th>Cancel</th>
+                                      <th>Update Status</th>
+                                  </tr>
+                              </thead>
+                          </table>
+                      </div>
+                  </div>
+                  <div class="tab-pane fade" id="done" role="tabpanel" aria-labelledby="contact-tab">
+                      <div class="table">
+                          <table class="table table-hover" id ="tableDone">
+                              <thead style="white-space: nowrap;">
+                                  <tr>
+                                      <th>Reference No</th>
+                                      <th>Vessel</th>
+                                      <th>Voy</th>
+                                      <th>Arrival Date</th>
+                                      <th>Departure Date</th>
+                                      <th>Port</th>
+                                      <th>Status Kapal</th>
+                                      <th>Purpose</th>
+                                      <th>Status</th>
+                                      <th>User</th>
+                                      <th>Edit</th>
+                                      <th>Print</th>
+                                      <th>Cancel</th>
+                                      <th>Update Status</th>
+                                  </tr>
+                              </thead>
+                          </table>
+                      </div>
+                  </div>
+              </div>
             </div>
         </div>
     </div>
@@ -155,7 +245,157 @@
         $('#tableInvoice').dataTable({
             serverSide: true,
             processing: true,
-            ajax: '{{route('invoice.dataTable')}}',
+            ajax: {
+                url: '{{ route('invoice.dataTable') }}',
+                data: {
+                    type: 'all'
+                }
+            },
+            scrollX: true,
+            scrollY: '50vh',
+            columns: [
+                {data:'reference_no', name:'reference_no', className:'text-center'},
+                {data:'ves_name', name:'ves_name', className:'text-center'},
+                {data:'voy', name:'voy', className:'text-center'},
+                {data:'arrival', name:'arrival', className:'text-center'},
+                {data:'departure', name:'departure', className:'text-center'},
+                {data:'port', name:'port', className:'text-center'},
+                {data:'statusKapal', name:'statusKapal', className:'text-center'},
+                {data:'purpose_of_call', name:'purpose_of_call', className:'text-center'},
+                {data:'status', name:'status', className:'text-center'},
+                {data:'user', name:'user', className:'text-center'},
+                {data:'edit', name:'edit', className:'text-center'},
+                {data:'print', name:'print', className:'text-center'},
+                {data:'cancel', name:'cancel', className:'text-center'},
+                {data:'updateStatus', name:'updateStatus', className:'text-center'},
+                {
+                    data: null,
+                    name: 'sort_order',
+                    visible: false,
+                    render: function (data, type, row) {
+                        const today = new Date().toISOString().slice(0,10); // YYYY-MM-DD
+                        const arrival = row.arrival_date ? row.arrival_date.slice(0,10) : null;
+                        const departure = row.departure_date ? row.departure_date.slice(0,10) : null;
+
+                        if (arrival && arrival > today) {
+                            return 1; // belum datang
+                        } else if (arrival && arrival <= today && (!departure || departure > today)) {
+                            return 2; // sudah arrival tapi belum depart
+                        } else if (departure && departure <= today) {
+                            return 3; // sudah departure
+                        }
+                        return 4; // default
+                    }
+                }
+            ]
+        });
+
+
+        $('#tableArrival').dataTable({
+            serverSide: true,
+            processing: true,
+            ajax: {
+                url: '{{ route('invoice.dataTable') }}',
+                data: {
+                    type: 'arrival'
+                }
+            },
+            scrollX: true,
+            scrollY: '50vh',
+            columns: [
+                {data:'reference_no', name:'reference_no', className:'text-center'},
+                {data:'ves_name', name:'ves_name', className:'text-center'},
+                {data:'voy', name:'voy', className:'text-center'},
+                {data:'arrival', name:'arrival', className:'text-center'},
+                {data:'departure', name:'departure', className:'text-center'},
+                {data:'port', name:'port', className:'text-center'},
+                {data:'statusKapal', name:'statusKapal', className:'text-center'},
+                {data:'purpose_of_call', name:'purpose_of_call', className:'text-center'},
+                {data:'status', name:'status', className:'text-center'},
+                {data:'user', name:'user', className:'text-center'},
+                {data:'edit', name:'edit', className:'text-center'},
+                {data:'print', name:'print', className:'text-center'},
+                {data:'cancel', name:'cancel', className:'text-center'},
+                {data:'updateStatus', name:'updateStatus', className:'text-center'},
+                {
+                    data: null,
+                    name: 'sort_order',
+                    visible: false,
+                    render: function (data, type, row) {
+                        const today = new Date().toISOString().slice(0,10); // YYYY-MM-DD
+                        const arrival = row.arrival_date ? row.arrival_date.slice(0,10) : null;
+                        const departure = row.departure_date ? row.departure_date.slice(0,10) : null;
+
+                        if (arrival && arrival > today) {
+                            return 1; // belum datang
+                        } else if (arrival && arrival <= today && (!departure || departure > today)) {
+                            return 2; // sudah arrival tapi belum depart
+                        } else if (departure && departure <= today) {
+                            return 3; // sudah departure
+                        }
+                        return 4; // default
+                    }
+                }
+            ]
+        });
+
+        $('#tableSandar').dataTable({
+            serverSide: true,
+            processing: true,
+            ajax: {
+                url: '{{ route('invoice.dataTable') }}',
+                data: {
+                    type: 'sandar'
+                }
+            },
+            scrollX: true,
+            scrollY: '50vh',
+            columns: [
+                {data:'reference_no', name:'reference_no', className:'text-center'},
+                {data:'ves_name', name:'ves_name', className:'text-center'},
+                {data:'voy', name:'voy', className:'text-center'},
+                {data:'arrival', name:'arrival', className:'text-center'},
+                {data:'departure', name:'departure', className:'text-center'},
+                {data:'port', name:'port', className:'text-center'},
+                {data:'statusKapal', name:'statusKapal', className:'text-center'},
+                {data:'purpose_of_call', name:'purpose_of_call', className:'text-center'},
+                {data:'status', name:'status', className:'text-center'},
+                {data:'user', name:'user', className:'text-center'},
+                {data:'edit', name:'edit', className:'text-center'},
+                {data:'print', name:'print', className:'text-center'},
+                {data:'cancel', name:'cancel', className:'text-center'},
+                {data:'updateStatus', name:'updateStatus', className:'text-center'},
+                {
+                    data: null,
+                    name: 'sort_order',
+                    visible: false,
+                    render: function (data, type, row) {
+                        const today = new Date().toISOString().slice(0,10); // YYYY-MM-DD
+                        const arrival = row.arrival_date ? row.arrival_date.slice(0,10) : null;
+                        const departure = row.departure_date ? row.departure_date.slice(0,10) : null;
+
+                        if (arrival && arrival > today) {
+                            return 1; // belum datang
+                        } else if (arrival && arrival <= today && (!departure || departure > today)) {
+                            return 2; // sudah arrival tapi belum depart
+                        } else if (departure && departure <= today) {
+                            return 3; // sudah departure
+                        }
+                        return 4; // default
+                    }
+                }
+            ]
+        });
+
+        $('#tableDone').dataTable({
+            serverSide: true,
+            processing: true,
+            ajax: {
+                url: '{{ route('invoice.dataTable') }}',
+                data: {
+                    type: 'done'
+                }
+            },
             scrollX: true,
             scrollY: '50vh',
             columns: [

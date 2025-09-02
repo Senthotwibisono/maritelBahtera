@@ -36,7 +36,7 @@ class InvoiceController extends Controller
 
     public function index(Request $request)
     {
-        $data['title'] = "Invoice Index";
+        $data['title'] = "Penawaran Index";
         $data['search'] = $request->input('search');
         $data['layouts'] = Layout::with('UserCreated')
             ->when($data['search'], function ($query, $search) {
@@ -52,7 +52,29 @@ class InvoiceController extends Controller
 
     public function dataTable(Request $request)
     {
-        $data = Header::get();
+        $now = Carbon::now();
+        // $voyage = Voy::where('arrival_date', '>', $now)->get();
+        // $data = Header::whereIn('voy_id', $voyage->pluck('id'))->get();
+        if ($request->type == 'all') {
+            $data = Header::get();
+        }
+
+        if ($request->type == 'arrival') {
+            $voyage = Voy::where('arrival_date', '>', $now)->get();
+            $data = Header::whereIn('voy_id', $voyage->pluck('id'))->get();
+        }
+
+        if ($request->type == 'sandar') {
+            $voyage = Voy::where('arrival_date', '<=', $now)->where('departure_date', '>', $now)->get();
+            $data = Header::whereIn('voy_id', $voyage->pluck('id'))->get();
+        }
+
+        if ($request->type == 'done') {
+            $voyage = Voy::where('departure_date', '<', $now)->get();
+            $data = Header::whereIn('voy_id', $voyage->pluck('id'))->get();
+        }
+
+
         return DataTables::of($data)
         ->addColumn('reference_no', function($data) {
             if ($data->reference_no != null) {
