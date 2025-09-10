@@ -24,9 +24,9 @@
                         <table class="table table-hover" id="tableCountry">
                             <thead>
                                 <tr>
-                                    <th class="text-cenmter" style="white-space: nowrap;">Country Code</th>
-                                    <th class="text-cenmter" style="white-space: nowrap;">Country Name</th>
-                                    <th class="text-cenmter" style="white-space: nowrap;">Edit</th>
+                                  <th class="text-cenmter" style="white-space: nowrap;">Country Name</th>
+                                  <th class="text-cenmter" style="white-space: nowrap;">Country Code</th>
+                                  <th class="text-cenmter" style="white-space: nowrap;">Edit</th>
                                 </tr>
                             </thead>
                         </table>

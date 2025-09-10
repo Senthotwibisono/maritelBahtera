@@ -55,23 +55,45 @@ class InvoiceController extends Controller
         $now = Carbon::now();
         // $voyage = Voy::where('arrival_date', '>', $now)->get();
         // $data = Header::whereIn('voy_id', $voyage->pluck('id'))->get();
-        if ($request->type == 'all') {
-            $data = Header::get();
-        }
 
-        if ($request->type == 'arrival') {
-            $voyage = Voy::where('arrival_date', '>', $now)->get();
-            $data = Header::whereIn('voy_id', $voyage->pluck('id'))->get();
-        }
-
-        if ($request->type == 'sandar') {
-            $voyage = Voy::where('arrival_date', '<=', $now)->where('departure_date', '>', $now)->get();
-            $data = Header::whereIn('voy_id', $voyage->pluck('id'))->get();
-        }
-
-        if ($request->type == 'done') {
-            $voyage = Voy::where('departure_date', '<', $now)->get();
-            $data = Header::whereIn('voy_id', $voyage->pluck('id'))->get();
+        if (Auth::user()->hasRole('admin')) {
+            if ($request->type == 'all') {
+                $data = Header::get();
+            }
+    
+            if ($request->type == 'arrival') {
+                $voyage = Voy::where('arrival_date', '>', $now)->get();
+                $data = Header::whereIn('voy_id', $voyage->pluck('id'))->get();
+            }
+    
+            if ($request->type == 'sandar') {
+                $voyage = Voy::where('arrival_date', '<=', $now)->where('departure_date', '>', $now)->get();
+                $data = Header::whereIn('voy_id', $voyage->pluck('id'))->get();
+            }
+    
+            if ($request->type == 'done') {
+                $voyage = Voy::where('departure_date', '<', $now)->get();
+                $data = Header::whereIn('voy_id', $voyage->pluck('id'))->get();
+            }
+        } else {
+            if ($request->type == 'all') {
+                $data = Header::where('user_id', Auth::user()->id)->get();
+            }
+    
+            if ($request->type == 'arrival') {
+                $voyage = Voy::where('arrival_date', '>', $now)->get();
+                $data = Header::whereIn('voy_id', $voyage->pluck('id'))->where('user_id', Auth::user()->id)->get();
+            }
+    
+            if ($request->type == 'sandar') {
+                $voyage = Voy::where('arrival_date', '<=', $now)->where('departure_date', '>', $now)->get();
+                $data = Header::whereIn('voy_id', $voyage->pluck('id'))->where('user_id', Auth::user()->id)->get();
+            }
+    
+            if ($request->type == 'done') {
+                $voyage = Voy::where('departure_date', '<', $now)->get();
+                $data = Header::whereIn('voy_id', $voyage->pluck('id'))->where('user_id', Auth::user()->id)->get();
+            }
         }
 
 
