@@ -14,7 +14,7 @@ use DataTables;
 use Barryvdh\DomPDF\Facade\Pdf;
 
 use App\Models\Master\MasterLayOut as Layout;
-use App\Models\Master\MasterLayOutMain as LayoutMain;
+use App\Models\Master\MasterLayoutMain as LayoutMain;
 use App\Models\Master\MasterLayoutItem as LayoutItem;
 use App\Models\Master\MasterLayoutItemDetil as ItemDetil;
 use App\Models\Master\MasterItem as Item;
@@ -109,7 +109,7 @@ class InvoiceController extends Controller
             if ($data->status == 'C') {
                 return '<span class="badge bg-danger text-dark">Canceled</span>';
             }elseif ($data->status == 'Y') {
-                return '<span class="badge bg-success text-dark">Berhasil</span>';
+                return '<span class="badge bg-success text-dark">Di Setujui</span>';
             }else {
                 return '<span class="badge bg-warning text-dark">Dalam Pengajuan</span>';
             }
@@ -165,9 +165,13 @@ class InvoiceController extends Controller
             return $status;
         })
         ->addColumn('updateStatus', function($data) {
-            return '<div title="Untuk next update" style="display:inline-block">
-              <button class="btn btn-success" data-id="'.$data->id.'" disabled style="pointer-events: none;">Update Status</button>
-            </div>';
+            if ($data->status !== 'C') {
+                return '<div title="Untuk next update">
+                  <button class="btn btn-success" data-id="'.$data->id.'" onClick="updateStatus(this)">Update Status</button>
+                </div>';
+            }else{
+                return' <span class="badge bg-danger text-dark">Reactive First</span>';
+            }
         })
         ->rawColumns(['edit', 'cancel', 'reference_no', 'status', 'print', 'updateStatus', 'statusKapal'])
         ->make(true);
@@ -447,6 +451,28 @@ class InvoiceController extends Controller
             return response()->json([
                 'success' => false,
                 'message' > 'Data tidak ditemukan'
+            ]);
+        }
+    }
+
+    public function updateStatusFirst(Request $request)
+    {
+        try {
+            DB::transaction(function() use($request){
+                $header = Header::find($request->id)->update([
+                    'status' => 'Y',
+                    'updated_at' => Carbon::now(),
+                    'last_user_updated' => Auth::user()->id,
+                ]);
+            });
+            return response()->json([
+                'success' => true,
+                'message' => 'Aksi Berhasil'
+            ]);
+        } catch (\Throwable $th) {
+            return response()->json([
+                'success' => false,
+                'message' => $th->getMessage()
             ]);
         }
     }

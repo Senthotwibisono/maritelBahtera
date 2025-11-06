@@ -507,4 +507,32 @@
             return;
         }
     }
+    async function updateStatus(button) {
+        const result = await confirmation();
+        if (result.isConfirmed) {
+            buttonLoading(button);
+            const data = {
+                id: button.dataset.id
+            };
+            const url = '{{route('invoice.updateStatus')}}';
+            const response = await globalResponse(data, url);
+            hideButton(button);
+            if (response.ok) {
+                const hasil = await response.json();
+                if (hasil.success) {
+                    successHasil(hasil).then(() => {
+                    $('#tableInvoice').DataTable().ajax.reload();
+                    });
+                }else{
+                    errorHasil(hasil);
+                    return;
+                }
+            }else{
+                errorResponse(response);
+                return;
+            }
+        }else{
+            return;
+        }
+    }
 </script>

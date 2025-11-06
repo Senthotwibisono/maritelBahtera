@@ -15,6 +15,13 @@
         </a>
     </li>
 
+     <li class="sidebar-item @if(Request::is('report/*') || Request::is('/report/*')) active @endif">
+        <a href="{{route('report.index')}}" class='sidebar-link'>
+            <i class="fas fa-file-alt"></i>
+            <span>Report</span>
+        </a>
+    </li>
+
      <li class="sidebar-item @if(Request::is('voyage/*') || Request::is('/voyage/*')) active @endif">
         <a href="{{route('voyage.index')}}" class='sidebar-link'>
             <i class="fas fa-ship"></i>

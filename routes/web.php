@@ -9,6 +9,7 @@ use App\Http\Controllers\Master\MasterLayoutController;
 use App\Http\Controllers\GetDataController;
 use App\Http\Controllers\Invoice\InvoiceController;
 use App\Http\Controllers\VoyageController;
+use App\Http\Controllers\ReportController;
 
 
 Auth::routes();
@@ -96,6 +97,7 @@ Route::prefix('/invoice')->name('invoice.')->group(function() {
         Route::post('/create', 'createFirst')->name('create');
         Route::post('/cancel', 'cancelFirst')->name('cancel');
         Route::post('/reactive', 'reactiveFirst')->name('reactive');
+        Route::post('/updateStatus', 'updateStatusFirst')->name('updateStatus');
 
         Route::prefix('/form/{id}')->name('form.')->group(function() {
             Route::get('/index', 'formIndex')->name('index');
@@ -120,4 +122,18 @@ Route::prefix('/voyage')->name('voyage.')->controller(VoyageController::class)->
     Route::get('/data', 'data')->name('data');
     Route::post('/post', 'post')->name('post');
     Route::post('/edit', 'edit')->name('edit');
+});
+
+Route::prefix('/report')->name('report.')->controller(ReportController::class)->group(function(){
+    Route::get('/index', 'index')->name('index');
+    Route::get('/data', 'data')->name('data');
+    Route::get('/total', 'total')->name('total');
+    Route::get('/fund', 'fund')->name('fund');
+    Route::get('/due', 'due')->name('due');
+    Route::get('/totalUsd', 'totalUsd')->name('totalUsd');
+    Route::get('/fundUsd', 'fundUsd')->name('fundUsd');
+    Route::get('/dueUsd', 'dueUsd')->name('dueUsd');
+    Route::get('/print/{status?}/{start?}/{end?}', 'print')->name('print');
+    Route::get('/excel', 'excel')->name('excel');
+
 });
