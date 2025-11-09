@@ -14,7 +14,7 @@ use App\Http\Controllers\ReportController;
 
 Auth::routes();
 
-Route::get('/', [App\Http\Controllers\HomeController::class, 'index'])->name('dashboard');
+Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('dashboard');
 
 
 Route::prefix('/userSystem')->controller(UserController::class)->group(function(){
